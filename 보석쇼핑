@@ -1,0 +1,26 @@
+from collections import defaultdict
+def solution(gems):
+    gemset=set(gems)
+    end=0
+    start=0
+    mini=1e6
+    gemdic = defaultdict(int)
+    while end<len(gems) and start<len(gems):     
+        if len(gemset) != len(gemdic.keys()) and end<len(gems):
+            gemdic[gems[end]]+=1
+            end+=1
+        if len(gemset) == len(gemdic.keys()) :
+            gemdic=defaultdict(int)  
+            
+            start1=start+1
+            if mini>end-start1:
+                       mini=end-start1
+                       answer=[start1,end]
+            end=start+1
+            start+=1
+
+    return answer
+    
+
+for i in k:
+    print(k[i])
