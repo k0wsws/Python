@@ -1,0 +1,31 @@
+
+def solution(n):
+    i=n+1
+    n1=0
+    n2=0
+    k=0
+    k2=0
+    while i>n:
+        for n1 in format(i,'b'):
+            if n1=='1':
+                k=k+1
+            else:
+                k=k
+        for n2 in format(n,'b'):
+            if n2=='1':
+                k2=k2+1
+            else:
+                k2=k2           
+        if k==k2:
+            answer=i
+            break;
+        else:
+            i+=1
+            k=0
+            k2=0
+    return answer
+
+        for n1 in format(73,'b'):
+            print(n1)
+            if n1=='1':
+                k=k+1
