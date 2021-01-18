@@ -1,0 +1,24 @@
+def solution(answers):
+    a1=[1,2,3,4,5]
+    a2=[2,1,2,3,2,4,2,5]
+    a3=[3,3,1,1,2,2,4,4,5,5]
+    l=len(answers)
+    
+    ans1=a1*(l//5)+a1[:(l%5)]
+    ans2=a2*(l//8)+a2[:(l%8)]
+    ans3=a3*(l//10)+a3[:(l%10)]
+    s1=0
+    s2=0
+    s3=0
+    for i in range(l):
+        if ans1[i]==answers[i]:
+            s1+=1
+        if a2[i]==answers[i]:
+            s2+=1    
+        if a3[i]==answers[i]:
+            s3+=1    
+    sol={1:s1,2:s2,3:s3}
+    
+    answer=[i for i, j in sol.items() if j == max(s1,s2,s3)]
+
+    return answer
