@@ -1,0 +1,364 @@
+--타겟넘버
+from itertools import product
+def solution(numbers, target):
+    l = [(x, -x) for x in numbers]
+    s = list(map(sum, product(*l)))
+    return s.count(target)
+
+from itertools import permutations
+from itertools import combinations
+
+--소수찾기
+def prime_number(number):
+    if number !=1:
+        for f in range(2,number):
+            if number%f==0:
+                return False
+    else:
+            return False
+    return True
+
+def solution(numbers):
+    last=[]
+    k=1
+    while k<=len(numbers):
+        a=list(permutations(list(numbers),k))
+        
+   
+        for i in a:
+          new=""
+          for j in range(len(i)):
+            new=new+str(i[j])
+          print(new)
+          if prime_number(int(new)):
+            last.append(int(new))
+        k+=1
+    count=len(set(last))
+    return count
+
+--소수만들기
+def prime_number(number):
+    if number!=1 and number!=0:
+        for f in range(2,number):
+            if number%f==0:
+                return False
+    else:
+            return False
+    return True
+
+def solution(nums):
+    count=0
+    for i in list(combinations(nums,3)):
+        if prime_number(sum(i)):
+            count+=1
+
+
+    # [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+
+    return count
+
+--전화번호목록
+
+def solution(phone_book):
+    answer=True
+    count=0
+    phone_book.sort()
+    for i in range(len(phone_book)):
+        for j in range(i,len(phone_book)):
+                if phone_book[j].startswith(phone_book[i]):
+                    if i!=j:
+                        count+=1
+                    else:
+                        count=count
+                else:
+                    count=count
+    if count!=0:
+        answer=False
+    else :
+        answer=True
+        
+    return answer
+
+def solution(phoneBook):
+    phoneBook = sorted(phoneBook)
+
+    for p1, p2 in zip(phoneBook, phoneBook[1:]):
+        if p2.startswith(p1):
+            return False
+    return True
+
+
+--피보나치수
+
+def solution(n):
+    f = []
+    f.append(0)
+    f.append(1)
+    for i in range(2, n):
+        f.append(f[-1] + f[-2])
+    return f[-1] % 1234567
+
+
+-- 최대값 최소값
+
+def solution(s):
+    a=s.split(' ')
+    
+    answer = str(min(a))+' '+str(max(a))
+    return answer
+
+
+더 맵게
+
+import copy
+import heapq
+
+def solution(scoville, K):
+    count=0
+    k=0
+    a=copy.deepcopy(scoville)
+    heapq.heapify(a)
+    while a[0]<K:
+                
+        k=heapq.heappop(a)
+        k=k+(heapq.heappop(a)*2)
+        heapq.heappush(a,k)
+        count+=1
+        if a[0]<K and count==(len(scoville)-1):
+            return -1
+    
+    return count
+
+
+여러수의 최소공배수
+def gcd(a, b):
+  while (b != 0):
+    temp = a % b
+    a = b
+    b = temp
+  return abs(a)
+
+
+# 최소 공배수 계산 함수
+def lcm(a, b):
+  gcd_value = gcd(a, b)
+  if (gcd_value == 0): return 0 # 인수가 둘다 0일 때의 에러 처리
+  return abs( (a * b) / gcd_value )
+
+
+def solution(arr):
+    while len(arr) >= 2:
+        a = arr.pop()
+        b = arr.pop()
+        arr.append(lcm(a,b))
+    return arr[0]
+
+
+
+오픈채팅방
+
+def solution(record):
+    answer=''
+    dic={}
+    for i in range(len(record)):
+        a=record[i].split()
+        if a[0]=='Enter':
+            dic[a[1]]=a[2]
+            answer+=a[1]+'님이'+' '+'들어왔습니다.  '
+        elif a[0]=='Leave':
+            answer+=a[1]+'님이'+' '+'나갔습니다.  '
+        elif a[0]=='Change':
+            dic[a[1]]=a[2]
+    for j in dic.keys():
+        answer=answer.replace(j,dic[j])
+    
+    return list(map(str,answer.split('  ')))[:-1]
+
+
+--크레인 인혛뽑기
+def solution(board, moves):
+    basket=[]
+    count=0
+    for i in moves:
+        for j in range(len(board)):
+            if board[j][i-1] !=0:
+                if len(basket)==0:
+                    basket.append(board[j][i-1])
+                    board[j][i-1]=0 
+                    break;
+
+                elif basket[-1:][0]==board[j][i-1]:
+                    basket.pop()
+                    board[j][i-1]=0
+                    count+=2
+                    break
+                else:
+                    basket.append(board[j][i-1])
+                    board[j][i-1]=0 
+                    break
+
+    return count
+
+
+
+
+--위장
+
+import collections
+def solution(clothes):
+    answer=1
+    a=[ i[1] for i in clothes]    
+    counter=collections.Counter(a)
+    n=list(counter.values())
+    print(n)
+    for k in range(len(n)):
+        answer=answer*(n[k]+1)
+        
+    answer = answer-1
+    return answer
+
+
+
+--프린터
+def solution(priorities, location):
+    queue =  [(i,p) for i,p in enumerate(priorities)]
+    answer = 0
+    while True:
+        cur = queue.pop(0)
+        if any(cur[1] < q[1] for q in queue):
+            queue.append(cur)
+        else:
+            answer += 1
+            if cur[0] == location:
+                return answer
+    
+
+--대문자        
+def solution(s):
+    answer=' '.join([i.capitalize() for i in s.split()])
+    return answer
+
+
+--다음큰숫
+
+def solution(s):
+    count=0
+    count0=0
+    a=0
+    while int(s)!=1:
+        ls1=len(s)
+        s=format(int(len(''.join(s.split('0')))),'b')
+        ls2=len(s)
+        count+=1
+        count0+=ls1-ls2
+    
+    return [count,count0]
+
+--행렬곱셈
+def solution(arr1, arr2):
+    sum=0
+    list1=[]
+    list2=[]
+    for i in range(len(arr1)):
+            for k in range(len(arr2[0])):
+                for j in range(len(arr2)):
+                    sum+=arr1[i][j]*arr2[j][k]
+                list1.append(sum)
+                sum=0
+            list2.append(list1)
+            list1=[]
+
+    return list2
+
+
+영어끝말잇기
+import math 
+def solution(n, words):
+    words2=[words[0]]
+    answer=[]
+    for i in range(len(words)-1):
+        if words[i][-1]==words[i+1][0] and words[i+1] not in words2:
+            words2.append(words[i+1])
+            print(i)
+            if i==len(words)-2:
+                answer=[0,0]
+        else:
+            answer=[(i+1)%n+1,math.ceil((i+2)/n)]
+            break 
+            
+
+    return answer
+
+
+-아이디추천
+
+import string
+def solution(new_id):
+    new_id2=''
+    new_id=new_id.lower()
+    for i in new_id:
+        if (i in string.ascii_lowercase) or i in ['-','_','.'] or i in string.digits:
+            new_id2+=i
+    while ".." in new_id2:
+        new_id2=new_id2.replace("..",".")
+    if new_id2[-1]=='.':
+        new_id2=new_id2[:-1]
+    if new_id2!='':
+        print(new_id2)
+        if new_id2[0]=='.' :
+            new_id2=new_id2[1:]
+    if new_id2=='':
+        new_id2='a'
+    if len(new_id2)>=16:
+        new_id2=new_id2[:15]
+    if new_id2[-1]=='.':
+        new_id2=new_id2[:-1]
+    while len(new_id2)<=2:
+        new_id2+=new_id2[-1]
+        
+    return new_id2
+
+
+--3진수 변환
+def change_binary(n : int) -> int:
+    result, idx = 0,0
+    while (n >=1):
+        remainder =n % 3
+        n = n // 3
+        result += (10**idx)* remainder
+        idx +=1
+    return result
+
+def solution(n):
+    change_binary(n)
+    a=''
+    for i in str(change_binary(n)):
+        a=i+a
+    return a
+
+--같은숫자싫어
+
+def solution(arr):
+    for i in set(arr):
+        i=str(i)
+        k=''.join(list(map(str,arr)))
+        while (i+i) in k:
+            k=k.replace(i+i,i)
+            print(k)
+ 
+    return list(map(str,k))
+
+--튜플
+
+def solution(s):
+    k={}
+    m=[]
+    a=s.replace('{','').replace('}',' ').strip().split(' ,')
+    a.sort(key=len)
+    for i in range(len(a)):
+        for j in list(map(int,a[i].split(','))):
+            if j not in m:
+                m.append(j)
+            
+        
+    return m
