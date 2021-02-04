@@ -1,0 +1,105 @@
+--순위검색  
+def solution(info, query):
+    answer=[]
+    for i in range(len(info)):
+        info[i]=list(map(str,info[i].split(' ')))
+    data=pd.DataFrame(info)
+    
+    for i in range(len(query)):
+        query[i]=list(map(str,query[i].replace(' and ',' ').split(' ')))
+    
+    for i in range(len(query)):
+        k=len(data[((data[0]==query[i][0]) |(query[i][0]=='-')) & ((data[1]==query[i][1]) |(query[i][1]=='-')) & ((data[2]==query[i][2]) |(query[i][2]=='-')) & ((data[3]==query[i][3]) |(query[i][3]=='-')) & ((data[4].astype(int)>=int(query[i][4])) )])
+        answer.append(k)
+    return answer
+
+import copy
+
+--구명보트
+people=[70, 80, 50]
+def solution(people, limit):
+    count=0
+    people2=copy.deepcopy(people)
+    for i in people:
+        if i>(limit-40):
+            count+=1
+            people2.remove(i)
+
+    people2.sort(reverse=True)
+    while people2!=[]:
+        if len(people2)>=2:
+            for i in range(len(people2)-1):
+                if people2[0]+people2[i+1]<=limit:
+                    count+=1
+                    people2.remove(people2[i+1])
+                    people2.remove(people2[0])
+                    break;
+        if len(people2)==1:
+            count+=1
+            break;
+               
+    answer = 0
+    return count
+
+def solution(people, limit):
+    answer = 0
+    people.sort()
+    ful_cnt =0
+    end_cnt =len(people)-1
+    while end_cnt - ful_cnt >=1:
+        if people[ful_cnt] + people[end_cnt] <= limit:
+            ful_cnt +=1
+            end_cnt -=1
+        else:
+            end_cnt -=1
+        answer +=1
+    if end_cnt == ful_cnt:
+        answer +=1
+    return answer
+
+--짝지어제거
+
+def solution(s):
+    a=list(s)
+    stack=[a[0]]
+    for i in a[1:]:
+            if stack[i-1]==i:
+                stack.pop()
+            else:
+                stack.append(i)
+    if len(stack)==0:
+        return 1
+    else :
+        return 0
+    
+--h-index   
+def solution(citations):
+    maxh=0
+    ch=0
+    for i in range(1,max(citations)+1):
+        for j in citations:
+            if j>=i:
+                ch+=1
+        print(ch)
+        if ch>=i :
+            if maxh<i:
+                maxh=i
+        ch=0
+
+    return maxh
+
+--숫자표현
+
+import math
+def solution(n):
+    answer=1
+    sum=0
+    for j in range(1,int(math.ceil((n+1)/2))):
+        for i in range(j,n+1):
+            sum+=i
+            if sum==n:
+                answer+=1
+                break;
+        sum=0
+
+    return answer
